@@ -1,0 +1,6 @@
+FROM openjdk:8-jdk-alpine
+
+ADD target/challenge-1.0-SNAPSHOT.jar app.jar
+ADD src/test/resources/test_user_data.txt data.txt
+
+ENTRYPOINT exec java -jar /app.jar /data.txt
