@@ -1,7 +1,23 @@
 spring:
   profile: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.99.100:8432/employeeservice
+    username: employeeservice
+    password: employeeservice
+    platform: postgres
 
-
-takeaway:
-  dummy: 'text'
-
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show_sql: true
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+#      jdbc:
+#        lob:
+#          non_contextual_creation: true

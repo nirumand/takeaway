@@ -1,0 +1,2 @@
+create table public.Employee (uuid uuid not null, birthday varchar(255), email varchar(255), full_name varchar(255), primary key (uuid))
+create table Employee_hobbies (Employee_uuid uuid not null, hobbies varchar(255))
