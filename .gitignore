@@ -7,9 +7,8 @@ event_service/.idea/*
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
-# modules.xml
-# *.ipr
+*.iml
+*.ipr
 
 # Sonarlint plugin
 .idea/sonarlint

@@ -1,0 +1,7 @@
+spring:
+  profile: dev
+
+
+takeaway:
+  dummy: 'text'
+
