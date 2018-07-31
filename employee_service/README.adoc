@@ -1,0 +1,17 @@
+= takeaway
+
+Takeaway.com Employee &amp; Event Service Coding Challenge
+
+== Database requirement:
+
+```bash
+docker run -d –-rm -p 8432:5432 -–name employee-service-db -e POSTGRES_USER=employeeservice -e POSTGRES_PASSWORD=employeeservice postgres:alpine -d employeeservice
+docker rm -f employee-service-db
+
+docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
+
+docker exec -ti kafka /opt/kafka_2.11-0.10.1.0/bin/kafka-console-consumer.sh –bootstrap-server localhost:9092 –topic codechallenge
+
+docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eventservice -e POSTGRES_PASSWORD=eventservice postgres:alpine -d eventservice
+docker rm -f event-service-db
+```

@@ -3,7 +3,13 @@ package com.takeaway.challenge.employeeservice.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +22,7 @@ public class Employee {
 
 	@Email
 	@JsonProperty
+	@Column(unique = true)
 	private String email;
 
 	@JsonProperty
@@ -23,7 +30,7 @@ public class Employee {
 	private String fullName;
 
 	@JsonProperty
-	private String birthday;
+	private Date birthday;
 
 	@JsonProperty
 	@ElementCollection
@@ -33,7 +40,7 @@ public class Employee {
 		this.uuid = UUID.randomUUID();
 	}
 
-	public Employee(String email, String fullName, String birthday, List<String> hobbies) {
+	public Employee(String email, String fullName, Date birthday, List<String> hobbies) {
 		this();
 		this.email = email;
 		this.fullName = fullName;
@@ -41,8 +48,8 @@ public class Employee {
 		this.hobbies = hobbies;
 	}
 
-	public String getUuid() {
-		return uuid.toString();
+	public UUID getUuid() {
+		return this.uuid;
 	}
 
 
@@ -64,11 +71,11 @@ public class Employee {
 		return this;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public Employee setBirthday(String birthday) {
+	public Employee setBirthday(Date birthday) {
 		this.birthday = birthday;
 		return this;
 	}
@@ -95,5 +102,17 @@ public class Employee {
 	@Override
 	public int hashCode() {
 		return uuid.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+		return "Employee{" +
+				"uuid=" + uuid +
+				", email='" + email + '\'' +
+				", fullName='" + fullName + '\'' +
+				", birthday='" + dateFormat.format(birthday) + '\'' +
+				", hobbies=" + hobbies +
+				'}';
 	}
 }
