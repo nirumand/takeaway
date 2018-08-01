@@ -54,15 +54,16 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/employees/{uuid}", consumes = {"application/json"})
-	public ResponseEntity<Void> updateEmployee(@PathVariable("uuid") UUID uuid) {
+	public ResponseEntity<Void> updateEmployee(@PathVariable("uuid") String uuid) {
 		try {
+			UUID id= UUID.fromString(uuid);
 			Employee newEmp = new Employee()
 					.setFullName("Reza Nirumand2")
 					.setHobbies(Arrays.asList("Guitar", "Piano"))
 					.setEmail("reza@nirumand.com")
 					.setBirthday(new Date());
 
-			employeeService.updateEmployee(uuid, newEmp);
+			employeeService.updateEmployee(id, newEmp);
 			return new ResponseEntity<>(HttpStatus.OK);
 
 		} catch (Exception e) {

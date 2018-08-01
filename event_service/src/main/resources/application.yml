@@ -2,7 +2,7 @@ spring:
   profile: dev
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:8432/eventservice
+    url: jdbc:postgresql://127.0.0.1:7432/eventservice
     username: eventservice
     password: eventservice
     platform: postgres
@@ -22,12 +22,11 @@ spring:
     bootstrap-servers: 127.0.0.1:9092
     consumer:
       client-id: eventservice
-
-
+      group-id: eventservice
+      auto-offset-reset: earliest
 
 server:
-  port: 8080
-
+  port: 8085
 
 takeaway:
   kafka:

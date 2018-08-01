@@ -8,7 +8,7 @@ Takeaway.com Employee &amp; Event Service Coding Challenge
 docker run -d –-rm -p 8432:5432 -–name employee-service-db -e POSTGRES_USER=employeeservice -e POSTGRES_PASSWORD=employeeservice postgres:alpine -d employeeservice
 docker rm -f employee-service-db
 
-docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
+docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
 
 docker exec -ti kafka /opt/kafka_2.11-0.10.1.0/bin/kafka-console-consumer.sh –bootstrap-server localhost:9092 –topic codechallenge
 
