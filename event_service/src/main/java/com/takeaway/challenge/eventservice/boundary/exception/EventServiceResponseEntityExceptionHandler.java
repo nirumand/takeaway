@@ -33,11 +33,11 @@ public class EventServiceResponseEntityExceptionHandler extends ResponseEntityEx
 				ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
 				ex.getMessage(),
 				request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(EventNotFoundException.class)
-	public final ResponseEntity<ErrorDetails> handleUserNotFoundException(
+	public final ResponseEntity<ErrorDetails> handleEventNotFoundException(
 			EventNotFoundException ex,
 			WebRequest request) {
 

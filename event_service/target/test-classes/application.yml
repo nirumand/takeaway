@@ -1,0 +1,51 @@
+spring:
+  profile: test
+  profiles:
+    active: test
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:7432/eventservice
+    username: eventservice
+    password: eventservice
+    platform: postgres
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create # When using Flyway, set to validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show_sql: false
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:testUnloading;DB_CLOSE_DELAY=-1;IGNORECASE=TRUE
+#    username: takeyaway
+#    password: takeyaway
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: create
+#      naming:
+#        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#        strategy: org.hibernate.cfg.DefaultNamingStrategy
+#    show_sql: false
+#    properties:
+#      hibernate:
+#        jdbc.time_zone: UTC
+
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+    client-id: eventservice
+    consumer:
+      client-id: eventservice
+      group-id: eventservice
+      auto-offset-reset: earliest
+    template:
+      default-topic: codechallenge

@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.*;
 import java.util.UUID;
 
+/**
+ * Entity to present all Bossiness events.
+ */
 @Entity
 public class BusinessEvent {
 
@@ -28,6 +31,10 @@ public class BusinessEvent {
 	private String eventBody;
 
 	public BusinessEvent() {
+	}
+
+	public UUID getEventID() {
+		return eventID;
 	}
 
 	public String getTimestamp() {
@@ -73,7 +80,7 @@ public class BusinessEvent {
 
 	@Override
 	public String toString() {
-		ObjectMapper mapper= new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {

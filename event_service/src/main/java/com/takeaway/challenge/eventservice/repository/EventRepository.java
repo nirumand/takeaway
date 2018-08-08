@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Responsible for persisting and fetching events
+ */
 @Repository
 public interface EventRepository extends JpaRepository<BusinessEvent, UUID> {
 
