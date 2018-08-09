@@ -1,17 +1,14 @@
 ### Intellij ###
-
-# User-specific stuff
+.idea/*
 employee_service/.idea/*
 event_service/.idea/*
 
-### Intellij Patch ###
-# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+### Targets ###
+employee_service/target/*
+event_service/target/*
 
 *.iml
 *.ipr
-
-# Sonarlint plugin
-.idea/sonarlint
 
 ### Java ###
 # Compiled class file
