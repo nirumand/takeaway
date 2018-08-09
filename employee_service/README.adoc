@@ -17,3 +17,7 @@ docker rm -f event-service-db
 
 docker exec -ti kafka /opt/kafka_2.11-0.10.1.0/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic codechallenge
 ```
+```
+Example Events:
+{"timestamp":"2018-08-09T10:22:44.118+02:00","eventName":"EMPLOYEE_CREATED","employeeId":"a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8","eventBody":"Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8, email='reza@nirumand.com', fullName='Reza Nirumand', birthday='2018-08-09', hobbies=[Guitar, Piano]}"}
+```

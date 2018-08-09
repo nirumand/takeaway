@@ -33,3 +33,6 @@ spring:
       auto-offset-reset: earliest
   profiles:
     active: dev
+  application:
+    name: event-service
+
