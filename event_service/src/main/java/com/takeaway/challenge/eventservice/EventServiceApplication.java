@@ -7,7 +7,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
 @EnableKafka
-@EnableAutoConfiguration
 public class EventServiceApplication {
 
 	public static void main(String[] args) {

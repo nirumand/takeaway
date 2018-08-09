@@ -18,7 +18,10 @@ import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.MessageListenerContainer;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
+import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -30,24 +33,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @RunWith(SpringRunner.class)
+@EnableKafka
 @SpringBootTest
 @DirtiesContext
 @DataJpaTest
-@EnableKafka
+@EmbeddedKafka(partitions = 1, controlledShutdown = false,
+		brokerProperties = {"listeners=PLAINTEXT://localhost:3333", "port=3333"})
 public class KafkaServiceTest {
 
 
 	private static String TOPIC = "codechallenge";
 
-	@Value("${spring.kafka.bootstrap-servers}")
+	@Value("127.0.0.1:9092")
 	private String bootstrapServers;
 
-	@ClassRule
-	public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(
-			1, false, 1, TOPIC);
+//	@ClassRule
+//	public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(
+//			1, false, 1, TOPIC);
 
 	@Autowired
 	private KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
+
+	@Autowired
+	private KafkaEmbedded kafkaEmbeded;
 
 	@Autowired
 	private EventRepository eventRepository;

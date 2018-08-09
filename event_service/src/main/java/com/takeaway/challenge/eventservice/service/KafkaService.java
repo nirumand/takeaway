@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeoutException;
  * If there is any problem with parsing the event or persisting, an error will be logged.
  */
 @Service
+
 public class KafkaService {
 	private static final Logger logger = LogManager.getLogger(KafkaService.class);
 	private KafkaTemplate<String, String> kafkaTemplate;
@@ -41,7 +43,7 @@ public class KafkaService {
 
 	public void produce(BusinessEvent event) {
 		try {
-			kafkaTemplate.send(kafkaTopic, event.toString()).get(3, TimeUnit.SECONDS);
+			kafkaTemplate.send(kafkaTopic, event.toString()).get(100, TimeUnit.MILLISECONDS);
 			logger.info("event Sent: [%s]", event.toString());
 
 		} catch (ExecutionException e) {
