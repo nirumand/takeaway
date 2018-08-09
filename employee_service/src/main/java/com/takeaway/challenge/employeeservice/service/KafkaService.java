@@ -28,7 +28,7 @@ public class KafkaService {
 
 	public void produce(BusinessEvent event) {
 		try {
-			kafkaTemplate.send(kafkaTopic, event.toString()).get(100, TimeUnit.MILLISECONDS);
+			kafkaTemplate.send(kafkaTopic, event.toString()).get(3, TimeUnit.SECONDS);
 			logger.info("event Sent: [%s]", event.toString());
 
 		} catch (ExecutionException e) {
