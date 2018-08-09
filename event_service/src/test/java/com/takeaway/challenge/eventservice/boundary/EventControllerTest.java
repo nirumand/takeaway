@@ -46,14 +46,12 @@ public class EventControllerTest {
 	}
 
 	@Test
-	public void should_returnListOfBusinessEvents() throws Exception {
+	public void shouldSuceed_whenReturnListOfBusinessEvents() throws Exception {
 		// Preparing
-		UUID eventId_1 = UUID.randomUUID();
-		UUID eventId_2 = UUID.randomUUID();
 		UUID employeeId = UUID.fromString("a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8");
 
-		List<BusinessEvent> events = generateBusinessEvents(Arrays.asList(eventId_1, eventId_2));
-		when(eventService.getBusinessEvents(employeeId)).thenReturn(events);
+		List<BusinessEvent> events = generateBusinessEvents();
+		when(eventService.getBusinessEventsByEmployeeId(employeeId)).thenReturn(events);
 
 		// Testing
 		String result = mockMvc.perform(get("/events/{employeeId}", employeeId.toString())
@@ -79,11 +77,11 @@ public class EventControllerTest {
 	}
 
 	@Test
-	public void should_returnNotFoundMessage() throws Exception {
+	public void shouldFail_whenReturnNotFoundMessage() throws Exception {
 		// Random, Does not exist on system
 		UUID employeeId = UUID.randomUUID();
 
-		when(eventService.getBusinessEvents(employeeId)).thenReturn(null);
+		when(eventService.getBusinessEventsByEmployeeId(employeeId)).thenReturn(null);
 
 		String result = mockMvc.perform(get("/events/{employeeId}", employeeId.toString())
 				.accept(MediaType.APPLICATION_JSON))
@@ -102,7 +100,7 @@ public class EventControllerTest {
 	}
 
 	@Test
-	public void should_returnBadRequestMessage() throws Exception {
+	public void shouldFail_whenReturnBadRequestMessage() throws Exception {
 		String dummyId = "non-valid-UUID-dummyId";
 		String result = mockMvc.perform(get("/events/{employeeId}", dummyId)
 				.accept(MediaType.APPLICATION_JSON))
@@ -123,7 +121,9 @@ public class EventControllerTest {
 	/**
 	 * Helper method for generating BusinessEvents for Testing
 	 */
-	private List<BusinessEvent> generateBusinessEvents(List<UUID> uuids) {
+	private List<BusinessEvent> generateBusinessEvents() {
+		UUID eventId_1 = UUID.randomUUID();
+		UUID eventId_2 = UUID.randomUUID();
 		BusinessEvent event1 = new BusinessEvent()
 				.setEventBody("Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8," +
 						" email='reza@nirumand.com', fullName='Reza Nirumand'," +
@@ -131,7 +131,7 @@ public class EventControllerTest {
 				.setTimestamp("2018-08-09T10:22:44.118+02:00")
 				.setEventName(EventName.EMPLOYEE_CREATED)
 				.setEmployeeId(UUID.fromString("a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8"))
-				.setEventID(uuids.get(0));
+				.setEventID(eventId_1);
 
 		BusinessEvent event2 = new BusinessEvent()
 				.setEventBody("Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8," +
@@ -140,7 +140,7 @@ public class EventControllerTest {
 				.setTimestamp("2018-08-09T10:22:44.118+02:00")
 				.setEventName(EventName.EMPLOYEE_UPDATED)
 				.setEmployeeId(UUID.fromString("a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8"))
-				.setEventID(uuids.get(1));
+				.setEventID(eventId_2);
 
 		return Arrays.asList(event1, event2);
 	}

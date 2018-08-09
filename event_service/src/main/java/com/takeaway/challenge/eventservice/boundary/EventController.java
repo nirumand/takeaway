@@ -45,7 +45,7 @@ public class EventController {
 		logger.debug("Request received with uuid:[{}]", uuid);
 		try {
 			UUID id = UUID.fromString(uuid);
-			List<BusinessEvent> events = eventService.getBusinessEvents(id);
+			List<BusinessEvent> events = eventService.getBusinessEventsByEmployeeId(id);
 			if (events == null) {
 				throw new EventNotFoundException(String.format("No event found for employeeId: [%s]", uuid));
 			}

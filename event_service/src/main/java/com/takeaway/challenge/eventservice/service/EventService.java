@@ -7,10 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Provides the required information requested by {@link com.takeaway.challenge.eventservice.boundary.EventController}
@@ -26,11 +26,11 @@ public class EventService {
 		this.eventRepository = eventRepository;
 	}
 
-	public List<BusinessEvent> getBusinessEvents(UUID uuid) {
+	public List<BusinessEvent> getBusinessEventsByEmployeeId(UUID uuid) {
 		logger.debug("Processing request for uuid: [{}]", uuid);
 		Optional<List<BusinessEvent>> events = eventRepository.findAllByEmployeeIdOrderByTimestampAsc(uuid);
 		if (events.isPresent()) {
-			return events.get().stream().collect(Collectors.toList());
+			return new ArrayList<>(events.get());
 		}
 		logger.debug("No event found for uuid:[{}]", uuid);
 		return null;

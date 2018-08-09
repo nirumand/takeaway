@@ -12,6 +12,7 @@ public class EventServiceApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

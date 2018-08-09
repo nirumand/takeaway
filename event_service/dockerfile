@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-ADD target/event-service-0.0.1-SNAPSHOT.jar app.jar
+ADD target/event-service.jar app.jar
 
 EXPOSE 8085
 
