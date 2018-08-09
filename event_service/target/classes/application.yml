@@ -1,10 +1,6 @@
 server:
   port: 8085
 
-takeaway:
-  kafka:
-    topic: codechallenge
-
 spring:
   profile: dev
   datasource:
@@ -31,6 +27,8 @@ spring:
       client-id: eventservice
       group-id: eventservice
       auto-offset-reset: earliest
+    template:
+      default-topic: codechallenge
   profiles:
     active: dev
   application:

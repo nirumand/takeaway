@@ -27,7 +27,7 @@ public class KafkaService {
 		this.eventRepository = eventRepository;
 	}
 
-	@KafkaListener(topics = "${takeaway.kafka.topic}")
+	@KafkaListener(topics = "${spring.kafka.template.default-topic}")
 	public void onEventInCodeChallenge(String event) {
 		try {
 			logger.debug("Event received : [{}]", event);
