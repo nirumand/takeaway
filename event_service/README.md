@@ -35,7 +35,8 @@ The KafkaService listens to *message broker* in order to consume events. Any mes
 The Processing of events consists of validating and parsing the structure of a event as a *BusinessEvent* and finally persisting to the configured database.
 - Repository: Is responsible for persisting and retrieving an event or a list of events.
 - Model: Is the main entity persisted into the database. In this service, the only entity is *BusinessEvent*.
-- Configuration Files: Application is configurable using *application.yml* file. For each profile, there exists a configuraiton file which are located under *resources* folder.
+
+Also, the application is configurable using *application.yml* file. For each profile, there exists a configuraiton file which are located under *resources* folder.
 
 ## Running
 Followings are required to compile, run the application:
