@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.takeaway.challenge.employeeservice.EmployeeServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.339 sec - in com.takeaway.challenge.employeeservice.EmployeeServiceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.726 sec - in com.takeaway.challenge.employeeservice.EmployeeServiceApplicationTests
