@@ -37,7 +37,7 @@ public class EventController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved employee's event list"),
-			@ApiResponse(code = 404, message = "There are not events available for the specified employee UUID")
+			@ApiResponse(code = 404, message = "There are no events available for the specified employee UUID")
 	})
 	@ApiOperation(value = "Retrieve a list of events related to a specific employee in ascending creation order")
 	@RequestMapping(method = RequestMethod.GET, value = "/events/{uuid}", produces = {"application/json"})

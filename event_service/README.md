@@ -63,15 +63,20 @@ docker exec -ti kafka /opt/kafka_2.11-0.10.1.0/bin/kafka-console-consumer.sh –
 docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eventservice -e POSTGRES_PASSWORD=eventservice postgres:alpine -d eventservice
 ```
 
-3) From the event-service folder, package the application and then create a docker-image:
+3) From the event-service folder, package the application and then run it:
 ```bash
 mvn clean package
-docker build . -t event-service:v1
+java -jar event-service.jar
+
 ```
 
-4) Once the docker image is built, run the container 
+4) Another way to run the applicaiton is using a docker container for the application, but this is not recommended for this case.
+Note, under windows additional configuration is required, because the localhost in the container refers to linux virtual machine, hence we need to refer to host network for our configurations.
+We need to run all the infrastructure services such as kafka and databases under host network and run the application container under two network, Once which is connected to host network and another which is connected to bridge network. 
+As of my experience, the host network under windows is very buggy and does not worth wasting time. My suggestion is to run the jar file from command line.
+To build the docker-image: 
 ```bash
-docker run -d -–rm -p 8085:8085 -–name event-service event-service:v1
+docker build . -t event-service:v1
 ```
 
 ## Clean up
