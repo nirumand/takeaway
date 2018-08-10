@@ -35,7 +35,7 @@ The KafkaService listens to *message broker* in order to consume events. Any mes
 The Processing of events consists of validating and parsing the structure of a event as a *BusinessEvent* and finally persisting to the configured database.
 - Repository: Is responsible for persisting and retrieving an event or a list of events.
 - Model: Is the main entity persisted into the database. In this service, the only entity is *BusinessEvent*.
-- Configuration Files: Application is configurable using *application.yml* file. For each profile, there exists a configuraiton filie which are located under *resources* folder.
+- Configuration Files: Application is configurable using *application.yml* file. For each profile, there exists a configuraiton file which are located under *resources* folder.
 
 ## Running
 Followings are required to compile, run the application:
@@ -48,7 +48,7 @@ Followings are required to compile, run the application:
 
 Simplest way to run the application is as follows, otherwise the datasource settings should be adjusted in the application.yml files for dev profile.
 
-1) make sure a kafka instance is already running. If not use following:  
+1) make sure a kafka instance is already running. If not, use following:  
 ```bash
 docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
 ```
@@ -65,7 +65,7 @@ docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eve
 
 3) From the event-service folder, package the application and then create a docker-image:
 ```bash
-maven clean package
+mvn clean package
 docker build . -t event-service:v1
 ```
 
