@@ -25,7 +25,7 @@ public class EmployeeServiceResponseEntityExceptionHandler extends ResponseEntit
 	}
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
-	public final ResponseEntity<ErrorDetails> handleUserNotFoundException(
+	public final ResponseEntity<ErrorDetails> handleEmployeeNotFoundException(
 			EmployeeNotFoundException ex,
 			WebRequest request) {
 
