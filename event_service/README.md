@@ -14,6 +14,11 @@ For each emoployeeId, there can exist many events. Therefore, the API returns a 
 ```http request
 http://127.0.0.1:8085/events/{employeeId}
 ```
+Depending on the request processing status, following HTTP.Status are used:v  
+
+- 200: When the input employeeId is valid UUID and a list of events are found and retrieved.
+- 400: When the input is not valid or the client does not provide a valid request structure.
+- 404: When the input employeeId is valid UUID but not events related to the specified id is found.
 
 The API online documentation is accessible under URL (assuming running locally):  
 ```http request
@@ -28,3 +33,6 @@ The event-service consists of following main packages:
 The EventService provides service to REST controller and communicates with *EventRepository* for retrieving events.
 The KafkaService listens to *message broker* in order to consume events. Any message published in the configured topic will be processed.
 The Processing of events consists of validating and parsing the structure of a event as a *BusinessEvent* and finally persisting to the configured database.
+- Repository: Is responsible for persisting and retrieving an event or a list of events.
+- Model: Is the main entity persisted into the database. In this service, the only entity is *BusinessEvent*.
+- Configuration Files: Application is configurable using *application.yml* file. For each profile, there exists a configuraiton filie which are located under *resources* folder.
