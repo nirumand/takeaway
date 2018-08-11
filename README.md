@@ -9,7 +9,7 @@ The employees are also persisted in a postgres database.
 The employee-service publishes an event for each of the create, update and delete operations.  
 The event-service is responsible for persisting the events in a database. 
 In addition the events, can be retrieved from the event-service as a list of events.
-Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. \\
+Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. 
 The Kafka is used as message and will be run as docker container. 
 For each microservice, there exists a postgres database instance as a docker container
 ## Running
