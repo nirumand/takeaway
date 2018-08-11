@@ -2,6 +2,12 @@ package com.takeaway.challenge.employeeservice.boundary;
 
 import com.takeaway.challenge.employeeservice.model.Employee;
 import com.takeaway.challenge.employeeservice.service.EmployeeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +22,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/")
+@Api(value="Employee-Service", description = "Manages employee entities ")
 public class EmployeeController {
+	private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
 	private EmployeeService employeeService;
 
@@ -25,6 +33,11 @@ public class EmployeeController {
 		this.employeeService = employeeService;
 	}
 
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved employee's event list"),
+			@ApiResponse(code = 404, message = "There are no events available for the specified employee UUID")
+	})
+	@ApiOperation(value = "Retrieve a list of events related to a specific employee in ascending creation order")
 	@RequestMapping(method = RequestMethod.GET, value = "/employees/{uuid}", produces = {"application/json"})
 	public String getEmployee(@PathVariable("uuid") String uuid) {
 		try {
