@@ -10,7 +10,7 @@ The employee-service publishes an event for each of the create, update and delet
 The event-service is responsible for persisting the events in a database. 
 In addition the events, can be retrieved from the event-service as a list of events.
 Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. 
-The Kafka is used as message broker and can be run as in a docker container. 
+The Kafka is used as the message broker and can be run as in a docker container. 
 For each microservice, there exists a postgres database instance as a docker container
 ## Running
 The are various ways to run this project. Following is the simplest and requires:
@@ -21,7 +21,8 @@ The are various ways to run this project. Following is the simplest and requires
 - Kafka (as docker container)
 - Postgres (as docker container)
 
-To run the code challenge do the followings:
+To run the code challenge do the followings.
+Please note the application does not start and work properly if kafka and postgres database is not started.
 
 1) Run Kafka as message broker.
 ```bash
@@ -34,12 +35,20 @@ docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eve
 ```
 3) Package the source code for each microservice to a jar file.
 ```bash
-## assuming the current directory is "takeaway" directory
+# assuming the current directory is "takeaway" directory
 mvn -f .\employee_service\pom.xml clean package
 mvn -f .\event_service\pom.xml clean package
 ```
-4) The employee-service and event-service are accessible under ports 8080,8085 respectively.
+5) Run the jar files. The employee-service and event-service are accessible under ports 8080,8085 respectively.
+```http request
+# On windows
+start java -jar .\event_service\target\event-service.jar
+start java -jar .\employee_service\target\employee-service.jar
 
+# on linux
+java -jar .\event_service\target\event-service.jar &
+java -jar .\event_service\target\event-service.jar &
+```
 ## Cleanup
 To clean up created containers do followings:
 ```bash
