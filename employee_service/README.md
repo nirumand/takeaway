@@ -8,12 +8,17 @@ The employee-service is responsible for persisting employee's specific events pu
 These events are consumed by another microservice, namely *event-service*. 
 
 
-An event has following fields. For example, following events is published when an employee entity is created.
+An event has following fields. For example, the following event is published when an employee entity is created.
 ```json
-{"timestamp":"2018-08-09T10:22:44.118+02:00","eventName":"EMPLOYEE_CREATED","employeeId":"a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8","eventBody":"Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8, email='reza@nirumand.com', fullName='Reza Nirumand', birthday='2018-08-09', hobbies=[Guitar, Piano]}"}
+{
+  "timestamp": "2018-08-09T10:22:44.118+02:00",
+  "eventName": "EMPLOYEE_CREATED",
+  "employeeId": "a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8",
+  "eventBody": "Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8, email='reza@nirumand.com', fullName='Reza Nirumand', birthday='2018-08-09', hobbies=[Guitar, Piano]}"
+}
 ```
 ## Endpoints
-The employee-service offers multiple REST APIs to create, update , delete and retrieve events.
+The employee-service offers multiple REST APIs to create, update, delete and retrieve events.
 ```http request
 http://127.0.0.1:8080/employees/{employeeId}
 ```

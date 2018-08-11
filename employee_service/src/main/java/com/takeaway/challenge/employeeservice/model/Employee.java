@@ -18,6 +18,7 @@ public class Employee {
 
 	@JsonProperty
 	@Id
+	@Column(name = "employeeId")
 	private UUID uuid;
 
 	@Email

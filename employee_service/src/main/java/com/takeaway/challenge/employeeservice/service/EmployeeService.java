@@ -1,5 +1,6 @@
 package com.takeaway.challenge.employeeservice.service;
 
+import com.takeaway.challenge.employeeservice.boundary.exception.EmployeeNotFoundException;
 import com.takeaway.challenge.employeeservice.event.BusinessEvent;
 import com.takeaway.challenge.employeeservice.event.EventName;
 import com.takeaway.challenge.employeeservice.model.Employee;
@@ -13,56 +14,55 @@ import java.util.UUID;
 @Service
 public class EmployeeService {
 
-	private EmployeeRepository employeeRepository;
-	private KafkaService kafkaService;
+    private EmployeeRepository employeeRepository;
+    private KafkaService kafkaService;
 
-	@Autowired
-	public EmployeeService(EmployeeRepository employeeRepository,
-						   KafkaService kafkaService) {
-		this.employeeRepository = employeeRepository;
-		this.kafkaService = kafkaService;
-	}
+    @Autowired
+    public EmployeeService(EmployeeRepository employeeRepository,
+                           KafkaService kafkaService) {
+        this.employeeRepository = employeeRepository;
+        this.kafkaService = kafkaService;
+    }
 
-	public Employee getEmployee(String uuid) {
-		try {
-			UUID id = UUID.fromString(uuid);
-			return employeeRepository.findOne(id);
-		} catch (IllegalArgumentException ie) {
-			return null;
-		}
-	}
+    public Employee getEmployee(UUID id) {
+        Employee emp = employeeRepository.findOne(id);
+        if (emp == null) {
+            throw new EmployeeNotFoundException(String.format("No employee found for UUID =[{}]", id));
+        }
+        return emp;
+    }
 
-	@Transactional
-	public void createEmployee(Employee newEmp) {
-		employeeRepository.save(newEmp);
+    @Transactional
+    public void createEmployee(Employee newEmp) {
+        employeeRepository.save(newEmp);
 
-		BusinessEvent event = new BusinessEvent();
-		event.setEmployeeId(newEmp.getUuid())
-				.setEventBody(newEmp.toString())
-				.setEventName(EventName.EMPLOYEE_CREATED);
+        BusinessEvent event = new BusinessEvent();
+        event.setEmployeeId(newEmp.getUuid())
+                .setEventBody(newEmp.toString())
+                .setEventName(EventName.EMPLOYEE_CREATED);
 
-		kafkaService.produce(event);
-	}
+        kafkaService.produce(event);
+    }
 
-	public void updateEmployee(UUID uuid, Employee emp) {
-		if (employeeRepository.findOne(uuid) != null) {
-			employeeRepository.save(emp);
-			BusinessEvent event = new BusinessEvent();
-			event.setEmployeeId(emp.getUuid())
-					.setEventBody(emp.toString())
-					.setEventName(EventName.EMPLOYEE_UPDATED);
+    public void updateEmployee(UUID uuid, Employee emp) {
+        if (employeeRepository.findOne(uuid) != null) {
+            employeeRepository.save(emp);
+            BusinessEvent event = new BusinessEvent();
+            event.setEmployeeId(emp.getUuid())
+                    .setEventBody(emp.toString())
+                    .setEventName(EventName.EMPLOYEE_UPDATED);
 
-			kafkaService.produce(event);
-		}
-	}
+            kafkaService.produce(event);
+        }
+    }
 
-	public void deleteEmployee(UUID uuid) {
-		if (employeeRepository.findOne(uuid) != null) {
-			employeeRepository.delete(uuid);
-			BusinessEvent event = new BusinessEvent();
-			event.setEmployeeId(uuid)
-					.setEventName(EventName.EMPLOYEE_UPDATED);
-			kafkaService.produce(event);
-		}
-	}
+    public void deleteEmployee(UUID uuid) {
+        if (employeeRepository.findOne(uuid) != null) {
+            employeeRepository.delete(uuid);
+            BusinessEvent event = new BusinessEvent();
+            event.setEmployeeId(uuid)
+                    .setEventName(EventName.EMPLOYEE_UPDATED);
+            kafkaService.produce(event);
+        }
+    }
 }
