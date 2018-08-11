@@ -1,12 +1,16 @@
 # Takeyaway.com Code challenge
 This repository hosts the source code of the code challenge for the company takeaway.com
 
-# Introduction
-The code challenge consists of implementing two Microservices, namely Employee-Service and Event-Service.
-Each service is located in its own folder. The detail explanation of the services are located in the service folder.
-
+## Introduction
+The code challenge consists of implementing two Microservices, namely *employee-Service* and *event-Service*.
+Each service is located in its own folder. \
+The employee-service is responsible for creating, updating, deleting and retrieving an employee resource. 
+The employee-service publishes an event for each of the create, update and delete operations.  
+The event-service is responsible for persisting the events in a database. 
+In addition the events, can be retrieved from the event-service as a list of events.
+Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder.
 ## Running
-The are various vays to run this project. Following is the simplest and requires:
+The are various ways to run this project. Following is the simplest and requires:
 
 - Java 1.8 jdk
 - Maven
