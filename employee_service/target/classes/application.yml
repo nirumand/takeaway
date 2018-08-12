@@ -22,7 +22,8 @@ spring:
     bootstrap-servers: 127.0.0.1:9092
     producer:
       client-id: employeeservice
-
+  profiles:
+    active: dev
 
 
 server:

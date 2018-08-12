@@ -5,7 +5,7 @@ spring:
 
   datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testEventService;DB_CLOSE_DELAY=-1;IGNORECASE=TRUE
+    url: jdbc:h2:mem:testEmployeeService;DB_CLOSE_DELAY=-1;IGNORECASE=TRUE
     username: takeyaway
     password: takeyaway
 
@@ -21,11 +21,3 @@ spring:
     properties:
       hibernate:
         jdbc.time_zone: UTC
-#  kafka:
-#    bootstrap-servers: 127.0.0.1:9092
-#    consumer:
-#      client-id: eventservice
-#      group-id: eventservice
-#      auto-offset-reset: earliest
-#    template:
-#      default-topic: codechallenge

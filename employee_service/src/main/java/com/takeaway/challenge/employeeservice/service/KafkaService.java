@@ -26,16 +26,20 @@ public class KafkaService {
 		this.kafkaTopic = kafkaTopic;
 	}
 
-	public void produce(BusinessEvent event) {
+	public boolean produce(BusinessEvent event) {
 		try {
 			kafkaTemplate.send(kafkaTopic, event.toString()).get(3, TimeUnit.SECONDS);
 			logger.info("event Sent: [%s]", event.toString());
 
+			return true;
+
 		} catch (ExecutionException e) {
 			logger.error("unable to send event= [%s]", event.toString(), e);
+			return false;
 
 		} catch (TimeoutException | InterruptedException e) {
 			logger.error("unable to send event= [%s]", event.toString(), e);
+			return false;
 		}
 	}
 }

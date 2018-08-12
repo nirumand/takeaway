@@ -43,6 +43,15 @@ http://127.0.0.1:8085/swagger-ui.html
 ```
 
 ## Technical Aspects
+
+```json
+{
+	"email":"reza@nirumand.com", 
+	"fullName":"Reza Nirumand", 
+	"birthday":"2018-08-09", 
+	"hobbies":["Guitar", "Piano"]
+}
+```
 The employee-service consists of following main packages:  
 
 - Boundary: Is a rest controller which offers an endpoint for clients to access the servie using REST API.

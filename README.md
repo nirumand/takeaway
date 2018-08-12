@@ -12,6 +12,16 @@ In addition the events, can be retrieved from the event-service as a list of eve
 Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. 
 The Kafka is used as the message broker and can be run as in a docker container. 
 For each microservice, there exists a postgres database instance as a docker container
+
+## Recommendations (not implemented)
+Followings are couple of recommendations when working implementing multiple microservices. Due to lack of time, they are not implemented on this task:
+
+- Use of FlyWay for database source code versioning.
+- Use of spring-cloud-config for centralized management
+- Use of a parent pom to have the same version of libraries for all the services.
+- Use of arc42 for documentation alongside the code. Therefore, the documentation is versioned properly with the code.
+
+
 ## Running
 The are various ways to run this project. Following is the simplest and requires:
 
