@@ -56,8 +56,8 @@ start java -jar .\event_service\target\event-service.jar
 start java -jar .\employee_service\target\employee-service.jar
 
 # on linux
-java -jar .\event_service\target\event-service.jar &
-java -jar .\event_service\target\event-service.jar &
+java -jar ./event_service/target/event-service.jar &
+java -jar ./event_service/target/event-service.jar &
 ```
 
 ## Example Scenario
