@@ -40,8 +40,8 @@ public class EmployeeController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved employee's details."),
-			@ApiResponse(code = 400, message = "Bad request is provided. The employeeId is not a valid UUID."),
-			@ApiResponse(code = 404, message = "There is no employee available for the specified employee UUID.")
+			@ApiResponse(code = 400, message = "Bad request is provided. The employeeId is not a valid employeeId."),
+			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
 	@ApiOperation(value = "Retrieve an employee using the employeeId")
 	@RequestMapping(method = RequestMethod.GET, value = "/employees/{uuid}", produces = {"application/json"})
@@ -57,7 +57,7 @@ public class EmployeeController {
 
 		} catch (IllegalArgumentException il) {
 			logger.error("bad request received for uuid:[{}]", uuid, il);
-			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid UUID", uuid));
+			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid employeeId", uuid));
 		}
 	}
 
@@ -85,7 +85,11 @@ public class EmployeeController {
 					" to an employee object");
 		}
 	}
-
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully created an Employee"),
+			@ApiResponse(code = 400, message = "Bad request is provided, e.g., the request body could not be parsed to an employee.")
+	})
+	@ApiOperation(value = "Update an employee's information for the given employeeId.")
 	@RequestMapping(method = RequestMethod.PUT,
 			value = "/employees/{uuid}",
 			consumes = {"application/json"},
@@ -104,16 +108,24 @@ public class EmployeeController {
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
+		} catch (IllegalArgumentException il) {
+			logger.error("bad request received for uuid:[{}]", uuid, il);
+			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid employeeId", uuid));
 		} catch (JSONException | ParseException e) {
 			logger.error("Can not create employee object. Wrong data structure is specified", e);
 			throw new BadRequestException("The input string can not be mapped to an employee object");
 		}
 	}
 
-	/** Delotes an Employee from persistent layer.
+	/** Deletes an Employee from persistent layer.
 	 * @param uuid A string representing UUID format as employeeId
 	 * @return ResponseDetails A message formatted as JSON if the resource is deleted.
 	 */
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully deleted the Employee"),
+			@ApiResponse(code = 400, message = "Bad request is provided, e.g., the employeeId is not valid.")
+	})
+	@ApiOperation(value = "Delete an employee based on the employeeId.")
 	@RequestMapping(method = RequestMethod.DELETE, value = "/employees/{uuid}", consumes = {"application/json"})
 	public ResponseEntity<ResponseDetails> deleteEmployee(@PathVariable("uuid") String uuid) {
 		try {
@@ -127,7 +139,7 @@ public class EmployeeController {
 
 		} catch (IllegalArgumentException il) {
 			logger.debug("bad request received for uuid:[{}]", uuid, il);
-			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid UUID", uuid));
+			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid employeeId", uuid));
 		}
 	}
 
