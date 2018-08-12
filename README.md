@@ -59,6 +59,26 @@ start java -jar .\employee_service\target\employee-service.jar
 java -jar .\event_service\target\event-service.jar &
 java -jar .\event_service\target\event-service.jar &
 ```
+
+## Example Scenario
+To better understand what the service does, we can run following scenario:
+
+On employee-Service:
+
+1) Create an employee using post command. 
+2) GET resource to verify if the employee is created
+3) Update the employee using put command.
+4) GET Resource to verify if the changes are applied
+5) Delete the resource
+6) Try to GET the resource. A Resource not found message should be returned.
+
+On event-Service
+
+- Monitor the events on kafka using kafka-consumer script.
+- Use the event-service endpoint to retrieve all the events specific to an employeeId
+
+Finally we will delete the created employee entity. 
+
 ## Cleanup
 To clean up created containers do followings:
 ```bash

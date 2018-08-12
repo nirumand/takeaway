@@ -70,8 +70,7 @@ public class EmployeeService {
 			employeeRepository.delete(uuid);
 			BusinessEvent event = new BusinessEvent();
 			event.setEmployeeId(uuid)
-					.setEventName(EventName.EMPLOYEE_UPDATED);
-
+					.setEventName(EventName.EMPLOYEE_DELETED);
 			if (!kafkaService.produce(event)) {
 				logger.error("the producer failed to publish the event, hence rollback.");
 				throw new RuntimeException("The event could not be published");

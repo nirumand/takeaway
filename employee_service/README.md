@@ -18,28 +18,10 @@ An event has following fields. For example, the following event is published whe
 }
 ```
 ## Endpoints
-The employee-service offers multiple REST APIs to create, update, delete and retrieve events.
+The employee-service offers multiple REST APIs to create, update, delete and retrieve employee objects. 
+For more details see following URL. 
 ```http request
-http://127.0.0.1:8080/employees/{employeeId}
-```
-
-```bash
-curl -X POST \
-  http://localhost:8080/employees \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -H 'postman-token: 27bf83d4-92ab-e1d7-09e7-c3b5338bd5cd'
-```
-
-Depending on the request processing status, following HTTP.Status are used:v  
-
-- 200: When the input employeeId is valid UUID and a list of events are found and retrieved.
-- 400: When the input is not valid or the client does not provide a valid request structure.
-- 404: When the input employeeId is valid UUID but no events related to the specified id is found.
-
-The API online documentation is accessible under URL (assuming running locally):  
-```http request
-http://127.0.0.1:8085/swagger-ui.html
+http://127.0.0.1:8080/swagger-ui.html
 ```
 
 ## Technical Aspects
@@ -105,25 +87,6 @@ To build the docker-image:
 ```bash
 docker build . -t employee-service:v1
 ```
-
-## Example Scenario
-To better understand what the service does, we can run following scenario:
-
-On employee-Service:
-
-1) Create an employee using post command. 
-2) GET resource to verify if the employee is created
-3) Update the employee using put command.
-4) GET Resource to verify if the changes are applied
-5) Delete the resource
-6) Try to GET the resource. A Resource not found message should be returned.
-
-On event-Service
-
-- Monitor the events on kafka using kafka-consumer script.
-- Use the event-service endpoint to retrieve all the events specific to an employeeId
-
-Finally we will delete the create employee entity. 
 
 ## Clean up
 To clean up all the created containers using following instructions:
