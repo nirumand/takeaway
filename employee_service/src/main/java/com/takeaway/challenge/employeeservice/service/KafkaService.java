@@ -29,16 +29,16 @@ public class KafkaService {
 	public boolean produce(BusinessEvent event) {
 		try {
 			kafkaTemplate.send(kafkaTopic, event.toString()).get(3, TimeUnit.SECONDS);
-			logger.info("event Sent: [%s]", event.toString());
+			logger.info("event Sent: [{}]", event.toString());
 
 			return true;
 
 		} catch (ExecutionException e) {
-			logger.error("unable to send event= [%s]", event.toString(), e);
+			logger.error("unable to send event= [{}]", event.toString(), e);
 			return false;
 
 		} catch (TimeoutException | InterruptedException e) {
-			logger.error("unable to send event= [%s]", event.toString(), e);
+			logger.error("unable to send event= [{}]", event.toString(), e);
 			return false;
 		}
 	}

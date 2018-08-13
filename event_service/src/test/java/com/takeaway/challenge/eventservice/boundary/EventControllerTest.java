@@ -46,7 +46,7 @@ public class EventControllerTest {
 	}
 
 	@Test
-	public void shouldSuceed_whenReturnListOfBusinessEvents() throws Exception {
+	public void shouldSucceed_whenReturnListOfBusinessEvents() throws Exception {
 		// Preparing
 		UUID employeeId = UUID.fromString("a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8");
 

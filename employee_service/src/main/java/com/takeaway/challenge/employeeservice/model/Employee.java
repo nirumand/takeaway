@@ -1,14 +1,14 @@
 package com.takeaway.challenge.employeeservice.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -18,8 +18,7 @@ public class Employee {
 
 	@JsonProperty
 	@Id
-	@Column(name = "employeeId")
-	private UUID uuid;
+	private UUID employeeId;
 
 	@Email
 	@JsonProperty
@@ -38,7 +37,7 @@ public class Employee {
 	private List<String> hobbies;
 
 	public Employee() {
-		this.uuid = UUID.randomUUID();
+		this.employeeId = UUID.randomUUID();
 	}
 
 	public Employee(String email, String fullName, Date birthday, List<String> hobbies) {
@@ -49,8 +48,8 @@ public class Employee {
 		this.hobbies = hobbies;
 	}
 
-	public UUID getUuid() {
-		return this.uuid;
+	public UUID getEmployeeId() {
+		return this.employeeId;
 	}
 
 
@@ -97,23 +96,19 @@ public class Employee {
 
 		Employee employee = (Employee) o;
 
-		return uuid.equals(employee.uuid);
+		return employeeId.equals(employee.employeeId);
 	}
 
 	@Override
 	public int hashCode() {
-		return uuid.hashCode();
+		return employeeId.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-		return "Employee{" +
-				"uuid=" + uuid +
-				", email='" + email + '\'' +
-				", fullName='" + fullName + '\'' +
-				", birthday='" + dateFormat.format(birthday) + '\'' +
-				", hobbies=" + hobbies +
-				'}';
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
+		return gson.toJson(this);
 	}
 }

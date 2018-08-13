@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,7 +38,7 @@ public class EmployeeService {
 		Employee emp = employeeRepository.save(newEmp);
 
 		BusinessEvent event = new BusinessEvent();
-		event.setEmployeeId(newEmp.getUuid())
+		event.setEmployeeId(newEmp.getEmployeeId())
 				.setEventBody(newEmp.toString())
 				.setEventName(EventName.EMPLOYEE_CREATED);
 
@@ -50,11 +51,17 @@ public class EmployeeService {
 
 	@Transactional
 	public void updateEmployee(UUID uuid, Employee emp) {
-		if (employeeRepository.findOne(uuid) != null) {
-			employeeRepository.save(emp);
+		Optional<Employee> found = employeeRepository.findEmployeeByEmployeeId(uuid);
+		if (found.isPresent()) {
+			employeeRepository.save(found.get()
+					.setHobbies(emp.getHobbies())
+					.setBirthday(emp.getBirthday())
+					.setEmail(emp.getEmail())
+					.setFullName(emp.getFullName()));
+
 			BusinessEvent event = new BusinessEvent();
-			event.setEmployeeId(emp.getUuid())
-					.setEventBody(emp.toString())
+			event.setEmployeeId(found.get().getEmployeeId())
+					.setEventBody(found.get().toString())
 					.setEventName(EventName.EMPLOYEE_UPDATED);
 
 			if (!kafkaService.produce(event)) {
@@ -66,7 +73,7 @@ public class EmployeeService {
 
 	@Transactional
 	public void deleteEmployee(UUID uuid) {
-		if (employeeRepository.findOne(uuid) != null) {
+		if (employeeRepository.findEmployeeByEmployeeId(uuid).isPresent()) {
 			employeeRepository.delete(uuid);
 			BusinessEvent event = new BusinessEvent();
 			event.setEmployeeId(uuid)

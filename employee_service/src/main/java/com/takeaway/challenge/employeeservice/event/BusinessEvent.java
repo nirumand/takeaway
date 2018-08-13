@@ -1,7 +1,6 @@
 package com.takeaway.challenge.employeeservice.event;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,12 +52,6 @@ public class BusinessEvent {
 
 	@Override
 	public String toString() {
-		ObjectMapper mapper= new ObjectMapper();
-		try {
-			return mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return new Gson().toJson(this);
 	}
 }

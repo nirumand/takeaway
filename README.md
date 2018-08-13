@@ -66,18 +66,67 @@ To better understand what the service does, we can run following scenario:
 On employee-Service:
 
 1) Create an employee using post command. 
-2) GET resource to verify if the employee is created
+```http request
+curl -X POST \
+  http://localhost:8080/employees \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 4b8d11cf-e6b5-d919-10f8-773c2fcbe638' \
+  -d '{
+    "email": "reza@nirumand.com",
+    "fullName": "Reza Nirumand",
+    "birthday": "1983-05-20",
+    "hobbies": [
+        "Guitar",
+        "Piano"
+    ]
+}'
+```
+2) GET resource to verify if the employee is created. Note, the UUID is random.
+```http request
+curl -X GET \
+  http://127.0.0.1:8080/employees/8d50f192-0cf2-4d54-9f73-cdebf9f74a85 \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: f962dc2b-269b-eed4-d811-dd7358e9b9fd'
+```
 3) Update the employee using put command.
-4) GET Resource to verify if the changes are applied
-5) Delete the resource
-6) Try to GET the resource. A Resource not found message should be returned.
+```http request
+curl -X PUT \
+  http://127.0.0.1:8080/employees/8d50f192-0cf2-4d54-9f73-cdebf9f74a85 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 571cb983-fec5-f13b-9927-ce495e766cb5' \
+  -d '{
+    "email": "reza2@nirumand.com",
+    "fullName": "Reza Nirumand",
+    "birthday": "1983-05-20",
+    "hobbies": [
+        "Guitar",
+        "Piano"
+    ]
+}'
+```
+4) GET Resource to verify if the changes are applied (same as step 2)
+5) Delete the created employee resource
+```http request
+curl -X DELETE \
+  http://127.0.0.1:8080/employees/8d50f192-0cf2-4d54-9f73-cdebf9f74a85 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: db4658c0-1623-83ab-bb63-b42bf9f3564d'
+```
+6) Try to GET the resource. A Resource not found message should be returned. (same as step 2)
 
 On event-Service
-
 - Monitor the events on kafka using kafka-consumer script.
 - Use the event-service endpoint to retrieve all the events specific to an employeeId
-
-Finally we will delete the created employee entity. 
+```http request
+curl -X GET \
+  http://localhost:8085/events/8d50f192-0cf2-4d54-9f73-cdebf9f74a85 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: fb1ed110-9a08-bec6-5af2-089a69ab4aff'
+```
 
 ## Cleanup
 To clean up created containers do followings:
