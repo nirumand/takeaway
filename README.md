@@ -16,6 +16,7 @@ For each microservice, there exists a postgres database instance as a docker con
 ## Recommendations (not implemented)
 Followings are couple of recommendations when working implementing multiple microservices. Due to lack of time, they are not implemented on this task:
 
+- Use of Keycloak for authentication
 - Use of FlyWay for database source code versioning.
 - Use of spring-cloud-config for centralized management
 - Use of a parent pom to have the same version of libraries for all the services.

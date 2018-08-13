@@ -1,6 +1,7 @@
 package com.takeaway.challenge.employeeservice.service;
 
 import com.takeaway.challenge.employeeservice.boundary.EmployeeController;
+import com.takeaway.challenge.employeeservice.boundary.exception.EmployeeNotFoundException;
 import com.takeaway.challenge.employeeservice.event.BusinessEvent;
 import com.takeaway.challenge.employeeservice.event.EventName;
 import com.takeaway.challenge.employeeservice.model.Employee;
@@ -68,6 +69,8 @@ public class EmployeeService {
 				logger.error("the producer failed to publish the event, hence rollback.");
 				throw new RuntimeException("The event could not be published");
 			}
+		} else {
+			throw new EmployeeNotFoundException(String.format("The employeeId= [%s] does not exist", uuid));
 		}
 	}
 
@@ -82,6 +85,9 @@ public class EmployeeService {
 				logger.error("the producer failed to publish the event, hence rollback.");
 				throw new RuntimeException("The event could not be published");
 			}
+		} else {
+			throw new EmployeeNotFoundException(String.format("The employeeId= [%s] does not exist", uuid));
 		}
+
 	}
 }

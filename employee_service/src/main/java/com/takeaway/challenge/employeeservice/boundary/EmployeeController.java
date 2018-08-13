@@ -95,7 +95,9 @@ public class EmployeeController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully created an Employee"),
-			@ApiResponse(code = 400, message = "Bad request is received, e.g., the request body could not be parsed to an employee.")
+			@ApiResponse(code = 400, message = "Bad request is received, e.g., the request body could not be parsed to an employee."),
+			@ApiResponse(code = 403, message = "The email address already exists"),
+			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
 	@ApiOperation(value = "Update an employee's information for the given employeeId.")
 	@RequestMapping(method = RequestMethod.PUT,
@@ -126,14 +128,15 @@ public class EmployeeController {
 	}
 
 	/**
-	 * Deletes an Employee from persistent layer.
+	 * Deletes an Employee from persistent laye
 	 *
 	 * @param uuid A string representing UUID format as employeeId
 	 * @return ResponseDetails A message formatted as JSON if the resource is deleted.
 	 */
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully deleted the Employee"),
-			@ApiResponse(code = 400, message = "Bad request is received, e.g., the employeeId is not valid.")
+			@ApiResponse(code = 400, message = "Bad request is received, e.g., the employeeId is not valid."),
+			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
 	@ApiOperation(value = "Delete an employee based on the employeeId.")
 	@RequestMapping(method = RequestMethod.DELETE, value = "/employees/{uuid}", consumes = {"application/json"})
