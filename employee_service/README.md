@@ -9,10 +9,11 @@ The employee-service is responsible for creating, updating, deleting and retriev
 An example event is provided below. The following event is published when the employee entity is persisted.
 ```json
 {
-  "timestamp": "2018-08-09T10:22:44.118+02:00",
+  "eventID": "3d2a42cd-e016-4b46-af93-da2679f079d2",
+  "timestamp": "2018-08-14T22:22:02.637+02:00",
   "eventName": "EMPLOYEE_CREATED",
-  "employeeId": "a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8",
-  "eventBody": "Employee{uuid=a5616ebe-f508-4b4e-a55a-c41e9fe8b9e8, email='reza@nirumand.com', fullName='Reza Nirumand', birthday='2018-08-09', hobbies=[Guitar, Piano]}"
+  "employeeId": "d453dadf-9a1b-4207-91c8-77163324918b",
+  "eventBody": "{\"employeeId\":\"d453dadf-9a1b-4207-91c8-77163324918b\",\"email\":\"rezas@nirumand.com\",\"fullName\":\"Reza Nirumand\",\"birthday\":\"1983-05-20\",\"hobbies\":[\"Guitar\",\"Piano\"]}"
 }
 ```
 ## Endpoints
