@@ -28,8 +28,6 @@ import java.util.UUID;
 @RequestMapping("/")
 @Api(value = "Employee-Service", description = "Manages employee entities ")
 public class EmployeeController {
-	//TODO: enable Authentication
-
 	private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
 	private EmployeeService employeeService;

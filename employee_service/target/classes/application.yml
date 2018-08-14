@@ -10,7 +10,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop # When using FlyWay or in production set to validate
+      ddl-auto: create-drop
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -22,6 +22,8 @@ spring:
     bootstrap-servers: 127.0.0.1:9092
     producer:
       client-id: employeeservice
+    template:
+      default-topic: codechallenge
   profiles:
     active: dev
 server:
@@ -34,3 +36,9 @@ takeaway:
 security:
   basic:
     enabled: true
+    path: "/employees/**"
+    realm: "takeaway.com"
+    authorize-mode: authenticated
+  user:
+    name: takeaway
+    password: takeaway

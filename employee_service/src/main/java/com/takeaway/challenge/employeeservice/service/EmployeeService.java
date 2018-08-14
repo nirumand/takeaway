@@ -60,14 +60,16 @@ public class EmployeeService {
 	public Employee updateEmployee(UUID uuid, Employee emp) {
 		Optional<Employee> found = employeeRepository.findEmployeeByEmployeeId(uuid);
 		if (found.isPresent()) {
-			Employee updated = employeeRepository.save(found.get()
-					.setHobbies(emp.getHobbies())
+			Employee toUpdate = found.get();
+			toUpdate.setHobbies(emp.getHobbies())
 					.setBirthday(emp.getBirthday())
 					.setEmail(emp.getEmail())
-					.setFullName(emp.getFullName()));
+					.setFullName(emp.getFullName()); 
+			
+			employeeRepository.save(toUpdate);
 
 			BusinessEvent event = new BusinessEvent();
-			event.setEmployeeId(found.get().getEmployeeId())
+			event.setEmployeeId(toUpdate.getEmployeeId())
 					.setEventBody(found.get().toString())
 					.setEventName(EventName.EMPLOYEE_UPDATED);
 
@@ -76,7 +78,7 @@ public class EmployeeService {
 				logger.error(message);
 				throw new RuntimeException(message);
 			}
-			return updated;
+			return toUpdate;
 		} else {
 			String message = String.format("The employeeId= [%s] does not exist", uuid);
 			logger.error(message);

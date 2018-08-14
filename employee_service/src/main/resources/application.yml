@@ -29,7 +29,16 @@ spring:
 server:
   port: 8080
 
+
 takeaway:
   kafka:
     topic: codechallenge
-
+security:
+  basic:
+    enabled: true
+    path: "/employees/**"
+    realm: "takeaway.com"
+    authorize-mode: authenticated
+  user:
+    name: takeaway
+    password: takeaway

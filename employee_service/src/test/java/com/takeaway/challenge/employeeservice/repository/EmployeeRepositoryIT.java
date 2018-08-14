@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext
-public class EmployeeRepositoryTest {
+public class EmployeeRepositoryIT {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
