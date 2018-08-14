@@ -1,3 +1,5 @@
+{:toc max_level=3 }
+
 # Takeaway.com Code challenge
 This repository hosts the source code of the code challenge for the company takeaway.com
 
@@ -10,14 +12,14 @@ The employee-service publishes an event for each of the create, update and delet
 The event-service is responsible for persisting the events in a database. 
 In addition the events, can be retrieved from the event-service as a list of events.
 Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. 
-The Kafka is used as the message broker and can be run as in a docker container. 
+The Kafka is used as the message broker and can be run in a docker container. 
 For each microservice, there exists a postgres database instance as a docker container
 
 ## Recommendations (not implemented)
-Followings are couple of recommendations when working implementing multiple microservices. Due to lack of time, they are not implemented on this task:
+Followings are couple of recommendations for extending this code challenge. Due to lack of time, they are not implemented on this task:
 
 - Use of Keycloak for authentication
-- Use of FlyWay for database source code versioning.
+- Use of Flyway for database source code versioning.
 - Use of spring-cloud-config for centralized management
 - Use of a parent pom to have the same version of libraries for all the services.
 - Use of arc42 for documentation alongside the code. Therefore, the documentation is versioned properly with the code.
@@ -35,11 +37,11 @@ The are various ways to run this project. Following is the simplest and requires
 To run the code challenge do the followings.
 Please note the application does not start and work properly if kafka and postgres database is not started.
 
-1) Run Kafka as message broker.
+1) Run Kafka as a message broker.
 ```bash
 docker run -d –-rm -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
 ```
-2) Run two databases, one for employee-service and one for event-service
+2) Run two database instances, one for employee-service and one for event-service
 ```bash
 docker run -d –-rm -p 8432:5432 -–name employee-service-db -e POSTGRES_USER=employeeservice -e POSTGRES_PASSWORD=employeeservice postgres:alpine -d employeeservice
 docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eventservice -e POSTGRES_PASSWORD=eventservice postgres:alpine -d eventservice

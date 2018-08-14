@@ -31,7 +31,13 @@ public class EmployeeService {
 	}
 
 	public Employee getEmployee(UUID id) {
-		return employeeRepository.findOne(id);
+		Optional<Employee> emp = employeeRepository.findEmployeeByEmployeeId(id);
+		if (emp.isPresent()) {
+			return emp.get();
+		} else {
+			throw new EmployeeNotFoundException(String.format("No Employee exists for employeeId=[%s]", id.toString()));
+		}
+
 	}
 
 	@Transactional
@@ -51,10 +57,10 @@ public class EmployeeService {
 	}
 
 	@Transactional
-	public void updateEmployee(UUID uuid, Employee emp) {
+	public Employee updateEmployee(UUID uuid, Employee emp) {
 		Optional<Employee> found = employeeRepository.findEmployeeByEmployeeId(uuid);
 		if (found.isPresent()) {
-			employeeRepository.save(found.get()
+			Employee updated = employeeRepository.save(found.get()
 					.setHobbies(emp.getHobbies())
 					.setBirthday(emp.getBirthday())
 					.setEmail(emp.getEmail())
@@ -66,11 +72,15 @@ public class EmployeeService {
 					.setEventName(EventName.EMPLOYEE_UPDATED);
 
 			if (!kafkaService.produce(event)) {
-				logger.error("the producer failed to publish the event, hence rollback.");
-				throw new RuntimeException("The event could not be published");
+				String message = "the producer failed to publish the event, hence rollback.";
+				logger.error(message);
+				throw new RuntimeException(message);
 			}
+			return updated;
 		} else {
-			throw new EmployeeNotFoundException(String.format("The employeeId= [%s] does not exist", uuid));
+			String message = String.format("The employeeId= [%s] does not exist", uuid);
+			logger.error(message);
+			throw new EmployeeNotFoundException(message);
 		}
 	}
 
@@ -82,11 +92,14 @@ public class EmployeeService {
 			event.setEmployeeId(uuid)
 					.setEventName(EventName.EMPLOYEE_DELETED);
 			if (!kafkaService.produce(event)) {
-				logger.error("the producer failed to publish the event, hence rollback.");
-				throw new RuntimeException("The event could not be published");
+				String message = "the producer failed to publish the event, hence rollback.";
+				logger.error(message);
+				throw new RuntimeException(message);
 			}
 		} else {
-			throw new EmployeeNotFoundException(String.format("The employeeId= [%s] does not exist", uuid));
+			String message = String.format("The employeeId= [%s] does not exist", uuid);
+			logger.error(message);
+			throw new EmployeeNotFoundException(message);
 		}
 
 	}

@@ -55,4 +55,16 @@ public class EmployeeServiceResponseEntityExceptionHandler extends ResponseEntit
 		return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
 
 	}
+
+	@ExceptionHandler(BadRequestException.class)
+	public final ResponseEntity<ErrorDetails> handleBadRequestException(
+			BadRequestException ex,
+			WebRequest request) {
+
+		ErrorDetails errorDetails = new ErrorDetails(
+				ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
+				ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
 }

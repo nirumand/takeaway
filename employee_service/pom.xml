@@ -92,6 +92,11 @@
             <version>${gson.version}</version>
         </dependency>
 
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <!-- Testing-->
         <dependency>
@@ -151,6 +156,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

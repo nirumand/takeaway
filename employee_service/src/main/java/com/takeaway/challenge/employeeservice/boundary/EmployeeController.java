@@ -83,10 +83,9 @@ public class EmployeeController {
 
 			return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-		} catch (JsonSyntaxException e) {
-			logger.error("Can not create employee object. Wrong data structure is specified", e);
-			throw new BadRequestException("The input string can not be mapped" +
-					" to an employee object");
+		} catch (JsonSyntaxException | IllegalStateException e) {
+			logger.debug("Can not create employee object. Wrong data structure is specified");
+			throw new BadRequestException("The input string can not be mapped to an employee object");
 		} catch (DataIntegrityViolationException d) {
 			logger.debug("The email address already exists.");
 			throw new DuplicateEmailProvidedException("The specified email already exists");
@@ -114,21 +113,21 @@ public class EmployeeController {
 			ResponseDetails response = new ResponseDetails(ZonedDateTime.now()
 					.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
 					"The Employee details are updated.",
-					emp.toString());
+					id.toString());
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
 		} catch (IllegalArgumentException il) {
 			logger.error("Bad request received for uuid:[{}]", uuid, il);
 			throw new BadRequestException(String.format("The input employeeId: [%s] is not a valid employeeId", uuid));
-		} catch (JsonSyntaxException e) {
+		} catch (JsonSyntaxException | IllegalStateException e) {
 			logger.error("Can not create employee object. Wrong data structure is specified", e);
 			throw new BadRequestException("The input string can not be mapped to an employee object");
 		}
 	}
 
 	/**
-	 * Deletes an Employee from persistent laye
+	 * Deletes an Employee from persistent layer
 	 *
 	 * @param uuid A string representing UUID format as employeeId
 	 * @return ResponseDetails A message formatted as JSON if the resource is deleted.
@@ -157,14 +156,12 @@ public class EmployeeController {
 		}
 	}
 
-	/**
-	 * Helper Method to parse string (provided in http request body) to an Employee Object
-	 *
+	/**Helper Method to parse string (provided in http request body) to an Employee Object
 	 * @param employeeString : A json formatted string representing an Employee Object
 	 * @return An Employee Object
 	 * @throws JsonSyntaxException, When the text is not parsable to an Employee
 	 */
-	Employee parseRequestBody(String employeeString) throws JsonSyntaxException {
+	Employee parseRequestBody(String employeeString) throws JsonSyntaxException, IllegalStateException {
 		Gson gson = new GsonBuilder()
 				.setDateFormat("yyyy-MM-dd").create();
 		return gson.fromJson(employeeString, Employee.class);

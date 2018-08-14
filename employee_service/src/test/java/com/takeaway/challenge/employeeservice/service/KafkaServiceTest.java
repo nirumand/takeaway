@@ -2,6 +2,6 @@ package com.takeaway.challenge.employeeservice.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KafkaServiceTest {
+public class KafkaServiceTest {
 
 }

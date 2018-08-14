@@ -59,7 +59,7 @@ Simplest way to run the application is as follows, otherwise the datasource sett
 
 1) make sure a kafka instance is already running. If not, use following:  
 ```bash
-docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
+docker run -d --rm -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
 ```
 
 You can watch the events on Kafka using consumer-console:
@@ -80,7 +80,7 @@ java -jar .\target\employee-service.jar
 
 4) Another way to run the applicaiton is using a docker container for the application, but this is not recommended for this case.
 Note, under windows additional configuration is required, because the localhost in the container refers to linux virtual machine, hence we need to refer to host network for our configurations.
-We need to run all the infrastructure services such as kafka and databases under host network and run the application container under two network, Once which is connected to host network and another which is connected to bridge network. 
+We need to run all the infrastructure services such as kafka and databases under host network and run the application container under two network, one which is connected to host network and another which is connected to bridge network. 
 As of my experience, the host network under windows is very buggy and does not worth investing time. My suggestion for this task is to just run the jar file from command line.
 
 To build the docker-image: 
