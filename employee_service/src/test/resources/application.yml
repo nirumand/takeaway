@@ -21,3 +21,7 @@ spring:
     properties:
       hibernate:
         jdbc.time_zone: UTC
+takeaway:
+  kafka:
+    topic: codechallenge
+

@@ -5,12 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,13 +32,14 @@ public class Employee {
 
 	@JsonProperty
 	@ElementCollection
-	private List<String> hobbies;
+	@OrderColumn
+	private Set<String> hobbies;
 
 	public Employee() {
 		this.employeeId = UUID.randomUUID();
 	}
 
-	public Employee(String email, String fullName, Date birthday, List<String> hobbies) {
+	public Employee(String email, String fullName, Date birthday, Set<String> hobbies) {
 		this();
 		this.email = email;
 		this.fullName = fullName;
@@ -80,11 +79,11 @@ public class Employee {
 		return this;
 	}
 
-	public List<String> getHobbies() {
+	public Set<String> getHobbies() {
 		return hobbies;
 	}
 
-	public Employee setHobbies(List<String> hobbies) {
+	public Employee setHobbies(Set<String> hobbies) {
 		this.hobbies = hobbies;
 		return this;
 	}

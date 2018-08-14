@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -193,7 +194,7 @@ public class EmployeeControllerTest {
 		emp.setFullName("Reza Nirumand")
 				.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse("1980-07-02"))
 				.setEmail("Reza@Nirumand.com")
-				.setHobbies(Arrays.asList("Piano", "Guitar"));
+				.setHobbies(new HashSet<>(Arrays.asList("Piano", "Guitar")));
 
 		return emp;
 	}

@@ -1,7 +1,9 @@
 package com.takeaway.challenge.employeeservice.repository;
 
 import com.takeaway.challenge.employeeservice.model.Employee;
+import org.apache.kafka.test.IntegrationTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext
+@Category(IntegrationTest.class)
 public class EmployeeRepositoryIT {
 
 	@Autowired
@@ -53,7 +57,7 @@ public class EmployeeRepositoryIT {
 		emp.setFullName("Reza Nirumand")
 				.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse("1980-07-02"))
 				.setEmail("Reza@Nirumand.com")
-				.setHobbies(Arrays.asList("Piano", "Guitar"));
+				.setHobbies(new HashSet<>(Arrays.asList("Piano", "Guitar")));
 
 		return emp;
 	}
