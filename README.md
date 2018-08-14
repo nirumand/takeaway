@@ -64,6 +64,11 @@ java -jar ./event_service/target/event-service.jar &
 java -jar ./event_service/target/event-service.jar &
 ```
 
+Another way to run the application is using a docker container for the application, but this is not recommended for this case.
+Note that under windows additional configuration is required, because the *localhost* in the container refers to Linux virtual machine, hence we need to refer to host network for our configurations.
+We need to run all the infrastructure services such as kafka and databases under host network and run the application container under two network, one which is connected to host network and another which is connected to bridge network. 
+As of my experience, the host network under windows is very buggy and does not worth investing time. My suggestion for this task is to just run the jar file from command line.
+
 ## Example Scenario
 To better understand what the service does, we can run the following scenario:
 
