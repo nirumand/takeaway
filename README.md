@@ -7,22 +7,24 @@ The code challenge consists of implementing two microservices, namely *employee-
 Each service is located in its own folder. 
 The employee-service is responsible for creating, updating, deleting and retrieving an employee resource.
 The employees are also persisted in a postgres database. 
-The employee-service publishes an event for each of the create, update and delete operations.  
+The employee-service publishes an event for each of the create, update and delete operations.
+
 The event-service is responsible for persisting the events in a database. 
-In addition the events, can be retrieved from the event-service as a list of events.
-Both services offer the resources as REST API endpoints. The detail explanation of the services are located in the respective service folder. 
+In addition, the events can be retrieved from the event-service as a list of events.
+
+Both services offer the resources on REST API endpoints. The detailed explanation of the services are located in the respective service folder.
+
 The Kafka is used as the message broker and can be run in a docker container. 
 For each microservice, there exists a postgres database instance as a docker container
 
 ## Recommendations (not implemented)
 Followings are couple of recommendations for extending this code challenge. Due to lack of time, they are not implemented on this task:
 
-- Use of Keycloak for authentication
+- Use of Keycloak for authentication.
 - Use of Flyway for database source code versioning.
-- Use of spring-cloud-config for centralized management
+- Use of spring-cloud-config for configuration management.
 - Use of a parent pom to have the same version of libraries for all the services.
 - Use of arc42 for documentation alongside the code. Therefore, the documentation is versioned properly with the code.
-
 
 ## Running
 The are various ways to run this project. Following is the simplest and requires:
@@ -51,7 +53,7 @@ docker run -d -–rm -p 7432:5432 -–name event-service-db -e POSTGRES_USER=eve
 mvn -f .\employee_service\pom.xml clean package
 mvn -f .\event_service\pom.xml clean package
 ```
-5) Run the jar files. The employee-service and event-service are accessible under ports 8080,8085 respectively.
+5) Run the jar files. The employee-service and event-service are accessible under ports 8080 and 8085, respectively.
 ```http request
 # On windows
 start java -jar .\event_service\target\event-service.jar
@@ -63,8 +65,9 @@ java -jar ./event_service/target/event-service.jar &
 ```
 
 ## Example Scenario
-To better understand what the service does, we can run following scenario:
+To better understand what the service does, we can run the following scenario:
 
+Note: postman-token and employeeId are generated and you should change it.
 On employee-Service:
 
 1) Create an employee using post command. 
