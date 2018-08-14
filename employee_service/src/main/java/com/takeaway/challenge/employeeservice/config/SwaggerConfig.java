@@ -19,6 +19,7 @@ public class SwaggerConfig {
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false)
 				.select().apis(RequestHandlerSelectors.basePackage("com.takeaway.challenge.employeeservice.boundary"))
 				.paths(regex("/employees.*"))
 				.build();

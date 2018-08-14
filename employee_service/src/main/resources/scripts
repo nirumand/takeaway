@@ -1,6 +1,0 @@
-create table public.Employee (uuid uuid not null, birthday varchar(255), email varchar(255), full_name varchar(255), primary key (uuid))
-create table Employee_hobbies (Employee_uuid uuid not null, hobbies varchar(255))
-
-
-
-Employee{uuid=e6ad7be8-3dc9-4300-89a8-e2d5fb2f24bf, email='reza@nirumand.com', fullName='Reza Nirumand', birthday='2018-07-30 20:50:52.023', hobbies=[Guitar, Piano]}

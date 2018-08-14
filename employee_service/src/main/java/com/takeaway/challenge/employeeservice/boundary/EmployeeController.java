@@ -40,6 +40,7 @@ public class EmployeeController {
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully retrieved employee's details."),
 			@ApiResponse(code = 400, message = "Bad request is received. The employeeId is not a valid employeeId."),
+			@ApiResponse(code = 401, message = "The request is not authorized."),
 			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
 	@ApiOperation(value = "Retrieve an employee using the employeeId")
@@ -62,7 +63,8 @@ public class EmployeeController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully created an Employee"),
-			@ApiResponse(code = 400, message = "Bad request is received, e.g., the request body could not be parsed to an employee.")
+			@ApiResponse(code = 400, message = "Bad request is received, e.g., the request body could not be parsed to an employee."),
+			@ApiResponse(code = 401, message = "The request is not authorized.")
 	})
 	@ApiOperation(value = "Create an employee with the given details in request body.")
 	@RequestMapping(method = RequestMethod.POST,
@@ -93,6 +95,7 @@ public class EmployeeController {
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully created an Employee"),
 			@ApiResponse(code = 400, message = "Bad request is received, e.g., the request body could not be parsed to an employee."),
+			@ApiResponse(code = 401, message = "The request is not authorized."),
 			@ApiResponse(code = 403, message = "The email address already exists"),
 			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
@@ -133,6 +136,7 @@ public class EmployeeController {
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Successfully deleted the Employee"),
 			@ApiResponse(code = 400, message = "Bad request is received, e.g., the employeeId is not valid."),
+			@ApiResponse(code = 401, message = "The request is not authorized."),
 			@ApiResponse(code = 404, message = "There is no employee available for the specified employeeId.")
 	})
 	@ApiOperation(value = "Delete an employee based on the employeeId.")

@@ -1,5 +1,7 @@
 spring:
   profile: dev
+  application:
+    name: employee-service
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1:8432/employeeservice

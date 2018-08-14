@@ -1,5 +1,3 @@
-{:toc max_level=3 }
-
 # Takeaway.com Code challenge
 This repository hosts the source code of the code challenge for the company takeaway.com
 
