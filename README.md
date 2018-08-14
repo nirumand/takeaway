@@ -37,7 +37,7 @@ Please note the application does not start and work properly if kafka and postgr
 
 1) Run Kafka as message broker.
 ```bash
-docker run -d -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
+docker run -d –-rm -e ADVERTISED_HOST=localhost -e ADVERTISED_PORT=9092 –-name kafka -p 2181:2181 -p 9092:9092 -p 8000:8000 spotify/kafka
 ```
 2) Run two databases, one for employee-service and one for event-service
 ```bash
