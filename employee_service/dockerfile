@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-ADD target/employee-service-0.0.1-SNAPSHOT.jar app.jar
+ADD target/employee-service.jar app.jar
 
 EXPOSE 8080
 
