@@ -21,6 +21,9 @@ The API online documentation is accessible under URL (assuming running locally):
 ```http request
 http://127.0.0.1:8080/swagger-ui.html
 ```
+The endpoints for CRUD operations are secured using basic authentication:  
+username and password:  takeaway
+
 ## Technical Aspects
 
 The employee-service consists of following main packages:  
