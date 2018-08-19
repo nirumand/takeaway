@@ -61,7 +61,7 @@ start java -jar .\employee_service\target\employee-service.jar
 
 # on linux
 java -jar ./event_service/target/event-service.jar &
-java -jar ./event_service/target/event-service.jar &
+java -jar ./employee_service/target/event-service.jar &
 ```
 
 Another way to run the application is using a docker container for the application, but this is not recommended for this case.
